@@ -7,7 +7,7 @@
 
 	console.log( Object.getPrototypeOf( obj1 ) === Object.prototype ); // 输出：true
 	console.log( Object.getPrototypeOf( obj2 ) === Object.prototype ); // 输出：true
-
+  // getPrototypeOf 参考链接：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf
 
 	//再来看看如何用new 运算符从构造器中得到一个对象，下面的代码我们再熟悉不过了：
 	function Person( name ){
@@ -32,6 +32,7 @@
 		return this.name;
 	};
 
+  // mark
 	var objectFactory = function(){
 		var obj = new Object(), // 从Object.prototype 上克隆一个空的对象
 		Constructor = [].shift.call( arguments ); // 取得外部传入的构造器，此例是Person
