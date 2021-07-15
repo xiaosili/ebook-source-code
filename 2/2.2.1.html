@@ -1,8 +1,14 @@
 ﻿<script type="text/javascript">
 	
 	//apply 方法把这个集合中的元素作为参数传递给被调用的函数：
-	var func = function( a, b, c ){
-		alert ( [ a, b, c ] ); // 输出 [ 1, 2, 3 ]
+	// mark
+  var func = function( a, b, c ){
+    console.log({
+      a: a, 
+      b: b,
+      c: c
+    })
+		console.log ( [ a, b, c ] ); // 输出 [ 1, 2, 3 ]
 	};
 
 	func.apply( null, [ 1, 2, 3 ] );
