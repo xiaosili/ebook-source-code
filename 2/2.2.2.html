@@ -86,15 +86,15 @@
 
 
 	//看看V8 引擎中的具体实现：
-	function ArrayPush() {
-		var n = TO_UINT32( this.length ); // 被push 的对象的length
-		var m = %_ArgumentsLength(); // push 的参数个数
-		for (var i = 0; i < m; i++) {
-			this[ i + n ] = %_Arguments( i ); // 复制元素 (1)
-		}
-		this.length = n + m; // 修正length 属性的值 (2)
-		return this.length;
-	};
+	// function ArrayPush() {
+	// 	var n = TO_UINT32( this.length ); // 被push 的对象的length
+	// 	var m = %_ArgumentsLength(); // push 的参数个数
+	// 	for (var i = 0; i < m; i++) {
+	// 		this[ i + n ] = %_Arguments( i ); // 复制元素 (1)
+	// 	}
+	// 	this.length = n + m; // 修正length 属性的值 (2)
+	// 	return this.length;
+	// };
 
 
 </script>
