@@ -264,7 +264,7 @@ push( obj, 2 );
   // mark
   // 辅助理解示例
   var fn = function() {
-    console.log(arguments)
+    console.log(arguments)//Arguments ["sven", callee: ƒ, Symbol(Symbol.iterator): ƒ]
   }
   Function.prototype.call.apply(fn,[window,'sven']);
   Function.prototype.call.call(fn,window,'sven');
@@ -294,7 +294,7 @@ push( obj, 2 );
 			}
 			if ( timer ) { // 如果定时器还在，说明前一次延迟执行还没有完成
 				return false;
-
+      }
 			timer = setTimeout(function () { // 延迟一段时间执行
 				clearTimeout(timer);
 				timer = null;
