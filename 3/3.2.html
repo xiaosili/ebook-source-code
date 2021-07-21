@@ -261,12 +261,25 @@ var obj = {
 push( obj, 2 );
 	console.log( obj ); // 输出：{0: 1, 1: 2, length: 2}
 
+  // mark
+  // 辅助理解示例
+  var fn = function() {
+    console.log(arguments)
+  }
+  Function.prototype.call.apply(fn,[window,'sven']);
+  Function.prototype.call.call(fn,window,'sven');
+
 	Function.prototype.uncurrying = function(){
 		var self = this;
 		return function(){
 			return Function.prototype.call.apply( self, arguments );
 		}
 	};
+  var push = Array.prototype.push.uncurrying();
+  (function() {
+    push(arguments, 5)
+    console.log(arguments)
+  })(1,2,3,4);
 
 	var throttle = function ( fn, interval ) {
 		var __self = fn, // 保存需要被延迟执行的函数引用
