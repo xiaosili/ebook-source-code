@@ -85,7 +85,10 @@
 	MyApp.namespace = function( name ){
 		var parts = name.split( '.' );
 		var current = MyApp;
-		for ( var i in parts ){
+    //for...in语句以任意顺序遍历一个对象的除Symbol以外的可枚举属性。
+    // for...in不应该用于迭代一个关注索引顺序的 Array
+		// mdn https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in
+    for ( var i in parts ){
 			if ( !current[ parts[ i ] ] ){
 				current[ parts[ i ] ] = {};
 			}
@@ -93,9 +96,20 @@
 
 		}
 	};
+  // or for of  mdn https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of
+  MyApp.namespace = function(name) {
+    var parts = name.split('.')
+    var current = MyApp
+    for (let p of parts) {
+      if (!current[p]) {
+        current[p] = {}
+      }
+      current = current[p]
+    }
+  }
 	MyApp.namespace( 'event' );
 	MyApp.namespace( 'dom.style' );
-	console.dir( MyApp );
+	console.dir( MyApp );//mdn 该特性是非标准的，请尽量不要在生产环境中使用它！
 	// 上述代码等价于：
 	var MyApp = {
 		event: {},
@@ -111,16 +125,6 @@
 			getUserInfo: function(){
 				return __name + '-' + __age;
 			}
-		}
-	})();
-
-	Singleton.getInstance = (function(){
-		var instance = null;
-		return function( name ){
-			if ( !instance ){
-				instance = new Singleton( name );
-			}
-			return instance;
 		}
 	})();
 
