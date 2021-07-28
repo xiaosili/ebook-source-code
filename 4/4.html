@@ -82,20 +82,20 @@
 	alert ( a === b );
 
 	var MyApp = {};
-	MyApp.namespace = function( name ){
-		var parts = name.split( '.' );
-		var current = MyApp;
-    //for...in语句以任意顺序遍历一个对象的除Symbol以外的可枚举属性。
-    // for...in不应该用于迭代一个关注索引顺序的 Array
-		// mdn https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in
-    for ( var i in parts ){
-			if ( !current[ parts[ i ] ] ){
-				current[ parts[ i ] ] = {};
-			}
-			current = current[ parts[ i ] ];
+	// MyApp.namespace = function( name ){
+	// 	var parts = name.split( '.' );
+	// 	var current = MyApp;
+  //   //for...in语句以任意顺序遍历一个对象的除Symbol以外的可枚举属性。
+  //   //for...in不应该用于迭代一个关注索引顺序的 Array
+	// 	// mdn https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in
+  //   for ( var i in parts ){
+	// 		if ( !current[ parts[ i ] ] ){
+	// 			current[ parts[ i ] ] = {};
+	// 		}
+	// 		current = current[ parts[ i ] ];
 
-		}
-	};
+	// 	}
+	// };
   // or for of  mdn https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of
   MyApp.namespace = function(name) {
     var parts = name.split('.')
@@ -203,7 +203,7 @@
 	var getSingle = function( fn ){
 		var result;
 		return function(){
-			return result || ( result = fn .apply(this, arguments ) );
+			return result || ( result = fn.apply(this, arguments ) );
 		}
 	};
 
