@@ -27,9 +27,9 @@ var iterable = {
           return { value: this.i++, done: false };
         }
         return { value: undefined, done: true };
-      }
+      },
     };
-  }
+  },
 };
 for (var value of iterable) {
   console.log(value);
