@@ -111,4 +111,59 @@
     }
     console.log(n); // 分别输出：1, 2, 3
   });
+
+  // 迭代器模式的应用举例
+  var getActiveUploadObj = function () {
+    try {
+      return new ActiveXObject('TXFTNActiveX.FTNUpload'); //ie上传控件
+    } catch (e) {
+      return false;
+    }
+  };
+
+  // var supportFlash = function () {}
+  var getFlashUploadObj = function () {
+    if (supportFlash()) {
+      //supportFlash 函数未提供
+      var str = '<object type="application/x-shockwave-flash"></object>';
+      return $(str).appendTo($('body'));
+    }
+    return false;
+  };
+
+  var getFormUploadObj = function () {
+    var str = '<input name="file" type="file" class="ui-file"/>';
+    return $(str).appendTo($('body'));
+  };
+
+  var iteratorUploadObj = function () {
+    for (var i = 0, fn; (fn = arguments[i++]); ) {
+      var uploadObj = fn();
+      if (uploadObj !== false) {
+        return uploadObj;
+      }
+    }
+  };
+
+  var uploadObj = iteratorUploadObj(
+    getActiveUploadObj,
+    getFlashUploadObj,
+    getFormUploadObj
+  );
+
+  // 增加分别获取 webkit 的控件上传 和 html5 上传
+  var getWebkitUploadObj = function () {
+    // 具体代码略
+  };
+
+  var getHtml5UploadObj = function () {
+    // 具体代码略
+  };
+  var uploadObj = iteratorUploadObj(
+    getActiveUploadObj,
+    getWebkitUploadObj,
+    getFlashUploadObj,
+    getHtml5UploadObj,
+    getFormUploadObj
+  );
 </script>
