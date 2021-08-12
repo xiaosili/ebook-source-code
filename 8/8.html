@@ -144,6 +144,7 @@
 </script>
 
 <script type="text/javascript">
+  // 取消订阅的事件
   event.remove = function (key, fn) {
     var fns = this.clientList[key];
     if (!fns) {
@@ -194,6 +195,7 @@
 </script>
 
 <script type="text/javascript">
+  // 回调函数
   login.succ(function (data) {
     header.setAvatar(data.avatar); // 设置header 模块的头像
     nav.setAvatar(data.avatar); // 设置导航模块的头像
@@ -201,6 +203,10 @@
     cart.refresh(); // 刷新购物车列表
   });
 
+  $.ajax('xxx', function (data) {
+    login.trigger('loginSucc', data);
+  });
+  // 发布订阅模式实现
   var header = (function () {
     // header 模块
     login.listen('loginSucc', function (data) {
@@ -239,6 +245,7 @@
 </script>
 
 <script type="text/javascript">
+  // 全局发布订阅对象
   var Event = (function () {
     var clientList = {},
       listen,
@@ -297,24 +304,36 @@
     <div id="show"></div>
   </body>
   <script type="text/JavaScript">
-    var a = (function(){
-    	var count = 0;
-    	var button = document.getElementById( 'count' );
-    	// 120 第8 章 发布订阅模式
-    	button.onclick = function(){
-    		Event.trigger( 'add', count++ );
-    	}
-    })();
-    var b = (function(){
-    	var div = document.getElementById( 'show' );
-    	Event.listen( 'add', function( count ){
-    		div.innerHTML = count;
-    	});
-    })();
+    // 模块间通信
+      var a = (function(){
+      	var count = 0;
+      	var button = document.getElementById( 'count' );
+      	// 120 第8 章 发布订阅模式
+      	button.onclick = function(){
+      		Event.trigger( 'add', count++ );
+      	}
+      })();
+      var b = (function(){
+      	var div = document.getElementById( 'show' );
+      	Event.listen( 'add', function( count ){
+      		div.innerHTML = count;
+      	});
+      })();
   </script>
 </html>
 
 <script type="text/javascript">
+  // 必须先订阅在发布吗？
+  // 全局事件的命名冲突-命名空间
+  Event.create('namespace1').listen('click', function (a) {
+    console.log(a)
+  })
+  Event.create('namespace1').trigger('click', 1)
+
+  Event.create('namespace2').listen('click', function (a) {
+    console.log(a)
+  })
+  Event.create('namespace2').trigger('click', 2)
   var Event = (function () {
     var global = this,
       Event,
